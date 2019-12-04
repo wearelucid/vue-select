@@ -24,7 +24,7 @@
         </slot>
 
         <slot name="search" v-bind="scope.search">
-          <input class="vs__search" v-bind="scope.search.attributes" v-on="scope.search.events" :aria-activedescendant="getHighlightedOptionKey()">
+          <input id="yoyo" class="vs__search yoyoyo" v-bind="scope.search.attributes" v-on="scope.search.events" :aria-activedescendant="getHighlightedOptionKey()">
         </slot>
       </div>
 
@@ -700,8 +700,10 @@
       },
 
       getHighlightedOptionKey() {
+        console.log('this.filteredOptions: ', this.filteredOptions)
         this.filteredOptions.forEach((o, index) => {
           if (index === typeAheadPointer) {
+            console.log('o: ', o)
             return getOptionKey(o);
           }
         })
