@@ -24,7 +24,7 @@
         </slot>
 
         <slot name="search" v-bind="scope.search">
-          <input class="vs__search" v-bind="scope.search.attributes" v-on="scope.search.events">
+          <input class="vs__search" v-bind="scope.search.attributes" v-on="scope.search.events" :aria-activedescendant="getSelectedOption()">
         </slot>
       </div>
 
@@ -54,6 +54,7 @@
     <transition :name="transition">
       <ul ref="dropdownMenu" v-if="dropdownOpen" class="vs__dropdown-menu" role="listbox" @mousedown.prevent="onMousedown" @mouseup="onMouseUp">
         <li
+          :id="getOptionKey(option)"
           role="option"
           v-for="(option, index) in filteredOptions"
           :key="getOptionKey(option)"
@@ -695,6 +696,14 @@
       isOptionSelected(option) {
         return this.selectedValue.some(value => {
           return this.optionComparator(value, option)
+        })
+      },
+
+      getSelectedOption() {
+        this.filteredOptions.forEach((o) => {
+          if (isOptionSelected(o)) {
+            return getOptionKey(o);
+          }
         })
       },
 
