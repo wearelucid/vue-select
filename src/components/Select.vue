@@ -58,6 +58,7 @@
           v-for="(option, index) in filteredOptions"
           :key="getOptionKey(option)"
           class="vs__dropdown-option"
+          :aria-selected="index === typeAheadPointer"
           :class="{ 'vs__dropdown-option--selected': isOptionSelected(option), 'vs__dropdown-option--highlight': index === typeAheadPointer, 'vs__dropdown-option--disabled': !selectable(option) }"
           @mouseover="selectable(option) ? typeAheadPointer = index : null"
           @mousedown.prevent.stop="selectable(option) ? select(option) : null"
